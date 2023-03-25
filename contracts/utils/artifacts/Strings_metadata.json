@@ -1,0 +1,62 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "String operations.",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/utils/Strings.sol": "Strings"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/utils/Strings.sol": {
+			"keccak256": "0xb0112adf903226f1ac22a142fdc0ff730cb0fae1102be069d97e11cbac1056c9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d37cc886f5cfde4afaa68c9b0ef924dad9af4461a973aac9f562b0000edce63b",
+				"dweb:/ipfs/QmdvQZ7PmTkbSnjxkoSeADmPT2pbXUeQULQLVgXkDfx69x"
+			]
+		},
+		"contracts/utils/math/Math.sol": {
+			"keccak256": "0xf2a0d6d88bcd4c25ae5973d386d925836e7224ad7bd21315204fbb7dc4099fce",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9137dd06a4138b21622ec9ea229d6135575517af2867b3d47326fe815a4c9b8d",
+				"dweb:/ipfs/QmdtAEnkgUwaX3uKuTwStU624RDpS6gdshrXtgA2RnBjRu"
+			]
+		},
+		"contracts/utils/math/SignedMath.sol": {
+			"keccak256": "0xb4a5f5f5222294665d6241a5c06558d4939617ebd0a49d1eb9c0e193fd19bdfe",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://be7f6a069d156446211053299916948102d357d813be42c5f1614885e71d81b3",
+				"dweb:/ipfs/QmfT2fs3cDWvfoekdfkUQ3ZMz4f8tc2hqnabipbfzW3Xqb"
+			]
+		}
+	},
+	"version": 1
+}
