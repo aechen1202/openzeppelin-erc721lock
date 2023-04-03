@@ -25,6 +25,11 @@ interface IERC721 is IERC165 {
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
     /**
+     * @dev Emitted when `owner` enables or disables (`approved`) lock to token.
+     */
+    event Lock(address indexed owner, uint256 tokenId, bool locked);
+
+    /**
      * @dev Returns the number of tokens in ``owner``'s account.
      */
     function balanceOf(address owner) external view returns (uint256 balance);
@@ -129,6 +134,32 @@ interface IERC721 is IERC165 {
      * See {setApprovalForAll}
      */
     function isApprovedForAll(address owner, address operator) external view returns (bool);
+
+    /**
+     * @dev Lock or remove lock to token.
+     * If token locked it would not allow to approve or transfer.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token.
+     *
+     * Emits an {Lock} event.
+     */
+    function lock(uint256 tokenId,bool locked) external;
+
+    /**
+     * @dev Returns 'tokenId' is locked or not.
+     *
+     * See {setApprovalForAll}
+     */
+    function getLocked(uint256 tokenId) external view returns (bool);
+    
+    /**
+     * @dev Returns 'owner' locked token count.
+     *
+     * See {setApprovalForAll}
+     */
+    function getLockedCountByOwner(address owner) external view returns (uint256);
 
     function mint(uint256 tokenId) external;
 }

@@ -38,6 +38,15 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     // Mapping from owner to operator approvals
     mapping(address => mapping(address => bool)) private _operatorApprovals;
 
+    // Mapping from token ID to lock
+    mapping(uint256=>bool) private _tokenLock;
+
+    //Mapping from owner to operator approval status
+    mapping(address=>bool) private _isOperatorApprovals;
+
+    //Mapping from owner to locked count approval status
+    mapping(address=>uint256) private _lockedCount;
+
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
      */
@@ -118,6 +127,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
             "ERC721: approve caller is not token owner or approved for all"
         );
 
+        require(!_tokenLock[tokenId],"ERC721: token locked");
+
         _approve(to, tokenId);
     }
 
@@ -154,6 +165,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     function transferFrom(address from, address to, uint256 tokenId) public virtual override {
         //solhint-disable-next-line max-line-length
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner or approved");
+        require(!_tokenLock[tokenId],"ERC721: token locked");
 
         _transfer(from, to, tokenId);
     }
@@ -170,8 +182,41 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      */
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual override {
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner or approved");
+        require(!_tokenLock[tokenId],"ERC721: token locked");
+
         _safeTransfer(from, to, tokenId, data);
     }
+
+    /**
+     * @dev See {IERC721-approve}.
+     */
+    function lock(uint256 tokenId,bool locked) public virtual override {
+        address owner = ERC721.ownerOf(tokenId);
+
+        require(_msgSender() == owner,
+            "ERC721: lock caller is not token owner or approved for all"
+        );
+
+        require(_tokenApprovals[tokenId] ==address(0), "ERC721: token approved");
+        require(!_isOperatorApprovals[owner],"ERC721: token approved");
+
+        _lock(tokenId, locked);
+    }
+
+     /**
+     * @dev See {IERC721-isApprovedForAll}.
+     */
+    function getLocked(uint256 tokenId) public view virtual override returns (bool) {
+        return _tokenLock[tokenId];
+    }
+
+     /**
+     * @dev See {IERC721-isApprovedForAll}.
+     */
+    function getLockedCountByOwner(address owner) public view virtual override returns (uint256) {
+        return _lockedCount[owner];
+    }
+
 
     /**
      * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
@@ -301,6 +346,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      * Emits a {Transfer} event.
      */
     function _burn(uint256 tokenId) internal virtual {
+        require(!_tokenLock[tokenId],"ERC721: token locked");
+
         address owner = ERC721.ownerOf(tokenId);
 
         _beforeTokenTransfer(owner, address(0), tokenId, 1);
@@ -379,7 +426,10 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
         require(owner != operator, "ERC721: approve to caller");
+        require(_lockedCount[owner]==0, "ERC721: token locked");
+        
         _operatorApprovals[owner][operator] = approved;
+        _isOperatorApprovals[owner]=approved;
         emit ApprovalForAll(owner, operator, approved);
     }
 
@@ -467,4 +517,21 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     function __unsafe_increaseBalance(address account, uint256 amount) internal {
         _balances[account] += amount;
     }
+
+    /**
+     * @dev Lock `tokenId`
+     *
+     * Emits an {Lock} event.
+     */
+    function _lock(uint256 tokenId,bool locked) internal virtual {
+        address owner = ERC721.ownerOf(tokenId);
+       
+         unchecked {
+            if(locked && !_tokenLock[tokenId]) _lockedCount[owner] += 1;
+            else if(!locked && _tokenLock[tokenId]) _lockedCount[owner]-=1;
+        }
+        _tokenLock[tokenId] = locked;
+        emit Lock(ERC721.ownerOf(tokenId), tokenId, locked);
+    }
+
 }

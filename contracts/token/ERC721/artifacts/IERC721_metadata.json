@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.19+commit.7dd6d404"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -53,6 +53,31 @@
 					}
 				],
 				"name": "ApprovalForAll",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "locked",
+						"type": "bool"
+					}
+				],
+				"name": "Lock",
 				"type": "event"
 			},
 			{
@@ -139,6 +164,44 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "getLocked",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "getLockedCountByOwner",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -158,6 +221,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "locked",
+						"type": "bool"
+					}
+				],
+				"name": "lock",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -313,6 +394,9 @@
 				"ApprovalForAll(address,address,bool)": {
 					"details": "Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets."
 				},
+				"Lock(address,uint256,bool)": {
+					"details": "Emitted when `owner` enables or disables (`approved`) lock to token."
+				},
 				"Transfer(address,address,uint256)": {
 					"details": "Emitted when `tokenId` token is transferred from `from` to `to`."
 				}
@@ -328,8 +412,17 @@
 				"getApproved(uint256)": {
 					"details": "Returns the account approved for `tokenId` token. Requirements: - `tokenId` must exist."
 				},
+				"getLocked(uint256)": {
+					"details": "Returns 'tokenId' is locked or not. See {setApprovalForAll}"
+				},
+				"getLockedCountByOwner(address)": {
+					"details": "Returns 'owner' locked token count. See {setApprovalForAll}"
+				},
 				"isApprovedForAll(address,address)": {
 					"details": "Returns if the `operator` is allowed to manage all of the assets of `owner`. See {setApprovalForAll}"
+				},
+				"lock(uint256,bool)": {
+					"details": "Lock or remove lock to token. If token locked it would not allow to approve or transfer. Requirements: - The caller must own the token. Emits an {Lock} event."
 				},
 				"ownerOf(uint256)": {
 					"details": "Returns the owner of the `tokenId` token. Requirements: - `tokenId` must exist."
@@ -375,11 +468,11 @@
 	},
 	"sources": {
 		"contracts/token/ERC721/IERC721.sol": {
-			"keccak256": "0xa1ab6c74305fd24c70cf5d753288ce4efaa6b74387c54a9e2ec7597c27133cd6",
+			"keccak256": "0x8173afb4770ba2471402c8bf6febe121121f444ae7ef9b40eac2397572d415bc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://afd9a8da4a8b136e267c4cf2c654ed6254c567eddd80ee8e00f47e8ee6b2aa89",
-				"dweb:/ipfs/QmNTy3i5Vai9UQxPxt6UZxbVRoxc8YEBDsWuQbxw29gY84"
+				"bzz-raw://36969a12bb3caa274037af9924d2b4f84732a7b07256aa3d049b2e28d8eecfb0",
+				"dweb:/ipfs/QmTVbV2BBKgbUY5iCheSPXCTCtyBXKfe7XG82cd6dxd17E"
 			]
 		},
 		"contracts/utils/introspection/IERC165.sol": {

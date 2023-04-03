@@ -77,6 +77,31 @@
 					{
 						"indexed": true,
 						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "locked",
+						"type": "bool"
+					}
+				],
+				"name": "Lock",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -155,6 +180,44 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "getLocked",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "getLockedCountByOwner",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -174,6 +237,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "locked",
+						"type": "bool"
+					}
+				],
+				"name": "lock",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -374,6 +455,9 @@
 				"ApprovalForAll(address,address,bool)": {
 					"details": "Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets."
 				},
+				"Lock(address,uint256,bool)": {
+					"details": "Emitted when `owner` enables or disables (`approved`) lock to token."
+				},
 				"Transfer(address,address,uint256)": {
 					"details": "Emitted when `tokenId` token is transferred from `from` to `to`."
 				}
@@ -392,8 +476,17 @@
 				"getApproved(uint256)": {
 					"details": "See {IERC721-getApproved}."
 				},
+				"getLocked(uint256)": {
+					"details": "See {IERC721-isApprovedForAll}."
+				},
+				"getLockedCountByOwner(address)": {
+					"details": "See {IERC721-isApprovedForAll}."
+				},
 				"isApprovedForAll(address,address)": {
 					"details": "See {IERC721-isApprovedForAll}."
+				},
+				"lock(uint256,bool)": {
+					"details": "See {IERC721-approve}."
 				},
 				"name()": {
 					"details": "See {IERC721Metadata-name}."
@@ -448,19 +541,19 @@
 	},
 	"sources": {
 		"contracts/token/ERC721/ERC721.sol": {
-			"keccak256": "0xec5102f45ebcc6f5a7dd33639876a2f53d88e1fd9a5402b1c31ac0180256376c",
+			"keccak256": "0xceefa49a7b5b5b690448d5a3d6e2c09b4fd79a49659d0ff76077300382711a41",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://af00a58329f70287a45279177ca4f547eedb88f4f15b11ed60183241e238e394",
-				"dweb:/ipfs/Qmdbru2SgykCwpoZoXz9Wq6wLNFrTAXJevCzZ3SwD6YLYs"
+				"bzz-raw://1cb9c5d29131d7209571d61e1e2f00ae4bf310eb4844010e506fd97cfb7cb55d",
+				"dweb:/ipfs/QmUyGcwAG9aem5D9xErx7U6pgvHpf9tT3E7PA18eKeWfqY"
 			]
 		},
 		"contracts/token/ERC721/IERC721.sol": {
-			"keccak256": "0xa1ab6c74305fd24c70cf5d753288ce4efaa6b74387c54a9e2ec7597c27133cd6",
+			"keccak256": "0x8173afb4770ba2471402c8bf6febe121121f444ae7ef9b40eac2397572d415bc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://afd9a8da4a8b136e267c4cf2c654ed6254c567eddd80ee8e00f47e8ee6b2aa89",
-				"dweb:/ipfs/QmNTy3i5Vai9UQxPxt6UZxbVRoxc8YEBDsWuQbxw29gY84"
+				"bzz-raw://36969a12bb3caa274037af9924d2b4f84732a7b07256aa3d049b2e28d8eecfb0",
+				"dweb:/ipfs/QmTVbV2BBKgbUY5iCheSPXCTCtyBXKfe7XG82cd6dxd17E"
 			]
 		},
 		"contracts/token/ERC721/IERC721Receiver.sol": {
