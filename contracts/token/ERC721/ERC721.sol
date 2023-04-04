@@ -132,10 +132,6 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
         _approve(to, tokenId);
     }
 
-    function mint(uint256 tokenId) public virtual override {
-        _safeMint(msg.sender,tokenId);
-    }
-
     /**
      * @dev See {IERC721-getApproved}.
      */

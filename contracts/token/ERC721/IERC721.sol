@@ -161,5 +161,4 @@ interface IERC721 is IERC165 {
      */
     function getLockedCountByOwner(address owner) external view returns (uint256);
 
-    function mint(uint256 tokenId) external;
 }
