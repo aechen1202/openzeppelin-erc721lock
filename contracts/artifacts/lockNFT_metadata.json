@@ -532,6 +532,19 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "newBaseURI",
+						"type": "string"
+					}
+				],
+				"name": "updateBaseUrl",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -651,11 +664,11 @@
 			]
 		},
 		"contracts/lockNFT.sol": {
-			"keccak256": "0x7cce83ff625994ce81651a9c963ecfb0e2370328e4a899eaa482c6e119b14e13",
+			"keccak256": "0x1522323081a09e9a0c9778563f094838636206a171e63cc3c992ef3c724c7108",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://488d2816ee859813876c0d6b760bd10edb0e2214379e7e09f391967bcb66ebb1",
-				"dweb:/ipfs/QmVhLSUvZeQWgFSXQNTm3q5N6oHiGC4ZHnchxzUPzeMLwY"
+				"bzz-raw://7d256b66231e5fe84abaf9321f8004f4dafe42cfbbf31012e0e6e8312fcd42f2",
+				"dweb:/ipfs/QmerKWh6vRDsanfzkF21W2h54CUc64of6AgEKgyQZxSFhb"
 			]
 		},
 		"contracts/security/Pausable.sol": {

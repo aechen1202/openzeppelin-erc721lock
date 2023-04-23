@@ -19,7 +19,7 @@ contract lockNFT is ERC721, Pausable, Ownable {
     mapping(uint256 => bool) private _lockedNFTs;
 
 
-    constructor() ERC721("2023 Happy Lunar New Year", "2023LunarNewYear-Rabbit") {}
+    constructor() ERC721("lockNFT", "lockNFT") {}
 
     function pause() public onlyOwner {
         _pause();
@@ -27,6 +27,10 @@ contract lockNFT is ERC721, Pausable, Ownable {
 
     function unpause() public onlyOwner {
         _unpause();
+    }
+
+    function updateBaseUrl(string memory newBaseURI) public onlyOwner {
+       baseURI = newBaseURI;
     }
 
     function tokenURI(uint256 tokenId)
