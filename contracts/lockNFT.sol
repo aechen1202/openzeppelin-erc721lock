@@ -11,10 +11,9 @@ contract lockNFT is ERC721, Pausable, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-    uint256 MAX_SUPPLY=9;
-    string baseURI = "ipfs://Qmdhe87uRvnpbxKEkWTGkpgdFP3RS4bQBLCJWp8vqkQmqp/";
+    uint256 MAX_SUPPLY=19;
+    string baseURI = "ipfs://QmYXUGLuoe9vT83Ezf8SBPWmWyTRts1HambY929trHQxTP/";
     string metaExtension = ".json";
-    uint256 PRICE_AFTER_FREE_LIMIT = 0.001 ether;
     mapping(address => uint256) private _packedAddressData;
     mapping(uint256 => bool) private _lockedNFTs;
 
